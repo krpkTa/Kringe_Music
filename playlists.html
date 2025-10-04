@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kringe-Music - Ваши плейлисты</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Kringe-Music</div>
+        <div class="header-controls">
+            <form class="search-form">
+                <input type="search" placeholder="Поиск музыки..." aria-label="Поиск музыки">
+                <button type="submit">Найти</button>
+            </form>
+            <button class="login-btn">Вход</button>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="playlists.html">Моя медиатека</a></li>
+            <li><a href="#my-tracks">Мои треки</a></li>
+            <li><a href="#playlist">Плейлист дня</a></li>
+            <li><a href="#mood-playlists">Плейлисты по настроению</a></li>
+            <li><a href="#genres">Жанры</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="my-tracks" id="my-tracks">
+            <h2>Мои треки</h2>
+            <div class="tracks-container">
+                <article class="track-card">
+                    <span class="track-number">1</span>
+                    <div class="track-info">
+                        <img src="images/my-track1.jpg" alt="Обложка трека 1" class="track-cover">
+                        <div class="track-details">
+                            <h3>Любимый трек 1</h3>
+                            <p>Мой любимый исполнитель</p>
+                        </div>
+                    </div>
+                    <span class="track-duration">3:25</span>
+                </article>
+                <article class="track-card">
+                    <span class="track-number">2</span>
+                    <div class="track-info">
+                        <img src="images/my-track2.jpg" alt="Обложка трека 2" class="track-cover">
+                        <div class="track-details">
+                            <h3>Трек для работы</h3>
+                            <p>Исполнитель для фона</p>
+                        </div>
+                    </div>
+                    <span class="track-duration">4:15</span>
+                </article>
+                <article class="track-card">
+                    <span class="track-number">3</span>
+                    <div class="track-info">
+                        <img src="images/my-track3.jpg" alt="Обложка трека 3" class="track-cover">
+                        <div class="track-details">
+                            <h3>Для тренировки</h3>
+                            <p>Энергичный исполнитель</p>
+                        </div>
+                    </div>
+                    <span class="track-duration">3:50</span>
+                </article>
+                <!-- Можно добавить больше треков -->
+            </div>
+        </section>
+
+        <section class="playlist" id="playlist">
+            <h2>Плейлист дня</h2>
+            <div class="playlist-container">
+                <article class="playlist-header">
+                    <img src="images/playlist-cover.jpg" alt="Обложка плейлиста дня" class="playlist-cover">
+                    <div class="playlist-info">
+                        <h3>Название плейлиста</h3>
+                        <p>Описание плейлиста</p>
+                        <p>Количество треков: 15</p>
+                    </div>
+                </article>
+                <div class="playlist-tracks">
+                    <article class="track-card">
+                        <span class="track-number">1</span>
+                        <div class="track-info">
+                            <img src="images/track1.jpg" alt="Обложка трека 1" class="track-cover">
+                            <div class="track-details">
+                                <h3>Название трека</h3>
+                                <p>Исполнитель</p>
+                            </div>
+                        </div>
+                        <span class="track-duration">3:45</span>
+                    </article>
+                    <article class="track-card">
+                        <span class="track-number">2</span>
+                        <div class="track-info">
+                            <img src="images/track4.jpg" alt="Обложка трека 4" class="track-cover">
+                            <div class="track-details">
+                                <h3>Название трека</h3>
+                                <p>Исполнитель</p>
+                            </div>
+                        </div>
+                        <span class="track-duration">4:10</span>
+                    </article>
+                    <!-- Остальные треки плейлиста -->
+                </div>
+            </div>
+        </section>
+
+        <section class="mood-playlists" id="mood-playlists">
+            <h2>Плейлисты по настроению</h2>
+            <div class="playlists-container">
+                <article class="playlist-card">
+                    <img src="images/chill-playlist.jpg" alt="Расслабляющий плейлист" class="playlist-cover">
+                    <div class="playlist-info">
+                        <h3>Для релакса</h3>
+                        <p>Спокойная музыка для отдыха</p>
+                        <span class="track-count">Треков: 12</span>
+                    </div>
+                </article>
+                
+                <article class="playlist-card">
+                    <img src="images/energy-playlist.jpg" alt="Энергичный плейлист" class="playlist-cover">
+                    <div class="playlist-info">
+                        <h3>Для тренировки</h3>
+                        <p>Энергичные треки для спорта</p>
+                        <span class="track-count">Треков: 15</span>
+                    </div>
+                </article>
+                
+                <article class="playlist-card">
+                    <img src="images/focus-playlist.jpg" alt="Плейлист для концентрации" class="playlist-cover">
+                    <div class="playlist-info">
+                        <h3>Для работы</h3>
+                        <p>Музыка для продуктивности</p>
+                        <span class="track-count">Треков: 18</span>
+                    </div>
+                </article>
+                
+                <article class="playlist-card">
+                    <img src="images/party-playlist.jpg" alt="Праздничный плейлист" class="playlist-cover">
+                    <div class="playlist-info">
+                        <h3>Для вечеринки</h3>
+                        <p>Танцевальные хиты</p>
+                        <span class="track-count">Треков: 20</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+        
+        <section class="genres" id="genres">
+            <h2>Жанры</h2>
+            <div class="genres-container">
+                <article class="genre-card">
+                    <img src="images/genre1.jpg" alt="Поп-музыка" class="genre-cover">
+                    <h3>Поп-музыка</h3>
+                </article>
+                <article class="genre-card">
+                    <img src="images/genre2.jpg" alt="Рок" class="genre-cover">
+                    <h3>Рок</h3>
+                </article>
+                <article class="genre-card">
+                    <img src="images/genre3.jpg" alt="Хип-хоп" class="genre-cover">
+                    <h3>Хип-хоп</h3>
+                </article>
+                <article class="genre-card">
+                    <img src="images/genre4.jpg" alt="Электронная музыка" class="genre-cover">
+                    <h3>Электронная</h3>
+                </article>
+            </div>
+        </section>
+
+        <!-- Музыкальный плеер -->
+        <section class="music-player">
+            <div class="player-controls">  
+                <img src="images/current-track.jpg" alt="Обложка текущего трека" class="now-playing-cover">
+                <button aria-label="Предыдущий трек">⏮</button>
+                <button aria-label="Пауза">⏸</button>
+                <button aria-label="Следующий трек">⏭</button>
+                <button aria-label="Повтор">🔁</button>
+                <input type="range" class="volume" min="0" max="100" value="50" aria-label="Громкость">
+            </div>
+            <div class="progress-bar">
+                <progress value="35" max="100"></progress>
+            </div>
+            <div class="track-info">
+                <span>Название трека - Исполнитель</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Kringe-Music</h3>
+                <p>Ваш музыкальный спутник. Слушайте музыку где угодно и когда угодно.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="playlists.html">Медиатека</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 Kringe-Music. Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>

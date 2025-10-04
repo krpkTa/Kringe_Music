@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kringe-Music</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Kringe-Music</div>
+        <div class="header-controls">
+            <form class="search-form">
+                <input type="search" placeholder="Поиск музыки..." aria-label="Поиск музыки">
+                <button type="submit">Найти</button>
+            </form>
+            <button class="login-btn">Вход</button>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="#news">Новости музыки</a></li>
+            <li><a href="#new-releases">Новые релизы</a></li>
+            <li><a href="#top-tracks">Топ 10 треков</a></li>
+            <li><a href="#top-artists">Топ 10 исполнителей</a></li>
+            <li><a href="#playlist">Плейлист дня</a></li>
+            <li><a href="playlists.html">Моя медиатека</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="news" id="news">
+            <h2>Новости музыки</h2>
+            <div class="news-container">
+                <article class="news-card">
+                    <h3>Заголовок новости 1</h3>
+                    <p>Краткое описание новости...</p>
+                    <time datetime="2024-01-15">24 сентября 2025</time>
+                </article>
+                <article class="news-card">
+                    <h3>Заголовок новости 2</h3>
+                    <p>Краткое описание новости...</p>
+                    <time datetime="2024-01-14">24 сентября 2025</time>
+                </article>
+                <article class="news-card">
+                    <h3>Заголовок новости 3</h3>
+                    <p>Краткое описание новости...</p>
+                    <time datetime="2024-01-13">24 сентября 2025</time>
+                </article>
+            </div>
+        </section>
+
+        <section class="new-releases" id="new-releases">
+            <h2>Новые релизы</h2>
+            <div class="releases-container">
+                <article class="release-card">
+                    <img src="images/new-release1.jpg" alt="Новый релиз 1" class="release-cover">
+                    <div class="release-info">
+                        <h3>Название альбома</h3>
+                        <p>Исполнитель</p>
+                        <span class="release-date">Дата выхода: 24.09.2025</span>
+                    </div>
+                </article>
+                <article class="release-card">
+                    <img src="images/new-release2.jpg" alt="Новый релиз 2" class="release-cover">
+                    <div class="release-info">
+                        <h3>Название альбома</h3>
+                        <p>Исполнитель</p>
+                        <span class="release-date">Дата выхода: 24.09.2025</span>
+                    </div>
+                </article>
+                <article class="release-card">
+                    <img src="images/new-release3.jpg" alt="Новый релиз 3" class="release-cover">
+                    <div class="release-info">
+                        <h3>Название альбома</h3>
+                        <p>Исполнитель</p>
+                        <span class="release-date">Дата выхода: 24.09.2025</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="top-tracks" id="top-tracks">
+            <h2>Топ 10 треков</h2>
+            <div class="tracks-container">
+                <article class="track-card">
+                    <span class="track-number">1</span>
+                    <div class="track-info">
+                        <img src="images/track1.jpg" alt="Обложка трека 1" class="track-cover">
+                        <div class="track-details">
+                            <h3>Название трека</h3>
+                            <p>Исполнитель</p>
+                        </div>
+                    </div>
+                    <span class="track-duration">3:45</span>
+                </article>
+                <article class="track-card">
+                    <span class="track-number">2</span>
+                    <div class="track-info">
+                        <img src="images/track2.jpg" alt="Обложка трека 2" class="track-cover">
+                        <div class="track-details">
+                            <h3>Название трека</h3>
+                            <p>Исполнитель</p>
+                        </div>
+                    </div>
+                    <span class="track-duration">4:20</span>
+                </article>
+                <article class="track-card">
+                    <span class="track-number">3</span>
+                    <div class="track-info">
+                        <img src="images/track3.jpg" alt="Обложка трека 3" class="track-cover">
+                        <div class="track-details">
+                            <h3>Название трека</h3>
+                            <p>Исполнитель</p>
+                        </div>
+                    </div>
+                    <span class="track-duration">5:15</span>
+                </article>
+                <!-- остальные 7 треков -->
+            </div>
+        </section>
+
+        <section class="top-artists" id="top-artists">
+            <h2>Топ 10 исполнителей</h2>
+            <div class="artists-container">
+                <article class="artist-card">
+                    <img src="images/artist1.jpg" alt="Исполнитель 1" class="artist-photo">
+                    <div class="artist-info">
+                        <h3>Исполнитель 1</h3>
+                        <p>Треков: 25</p>
+                    </div>
+                </article>
+                <article class="artist-card">
+                    <img src="images/artist2.jpg" alt="Исполнитель 2" class="artist-photo">
+                    <div class="artist-info">
+                        <h3>Исполнитель 2</h3>
+                        <p>Треков: 18</p>
+                    </div>
+                </article>
+                <article class="artist-card">
+                    <img src="images/artist3.jpg" alt="Исполнитель 3" class="artist-photo">
+                    <div class="artist-info">
+                        <h3>Исполнитель 3</h3>
+                        <p>Треков: 32</p>
+                    </div>
+                </article>
+                <!-- остальные 7 исполнителей -->
+            </div>
+        </section>
+
+        <section class="playlist" id="playlist">
+            <h2>Плейлист дня</h2>
+            <div class="playlist-container">
+                <article class="playlist-header">
+                    <img src="images/playlist-cover.jpg" alt="Обложка плейлиста дня" class="playlist-cover">
+                    <div class="playlist-info">
+                        <h3>Название плейлиста</h3>
+                        <p>Описание плейлиста</p>
+                        <p>Количество треков: 15</p>
+                    </div>
+                </article>
+                <div class="playlist-tracks">
+                    <article class="track-card">
+                        <span class="track-number">1</span>
+                        <div class="track-info">
+                            <img src="images/track1.jpg" alt="Обложка трека 1" class="track-cover">
+                            <div class="track-details">
+                                <h3>Название трека</h3>
+                                <p>Исполнитель</p>
+                            </div>
+                        </div>
+                        <span class="track-duration">3:45</span>
+                    </article>
+                    <article class="track-card">
+                        <span class="track-number">2</span>
+                        <div class="track-info">
+                            <img src="images/track4.jpg" alt="Обложка трека 4" class="track-cover">
+                            <div class="track-details">
+                                <h3>Название трека</h3>
+                                <p>Исполнитель</p>
+                            </div>
+                        </div>
+                        <span class="track-duration">4:10</span>
+                    </article>
+                    <!-- Остальные треки плейлиста -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Музыкальный плеер -->
+        <section class="music-player">
+            <div class="player-controls">  
+                <img src="images/current-track.jpg" alt="Обложка текущего трека" class="now-playing-cover">
+                <button aria-label="Предыдущий трек">⏮</button>
+                <button aria-label="Пауза">⏸</button>
+                <button aria-label="Следующий трек">⏭</button>
+                <button aria-label="Повтор">🔁</button>
+                <input type="range" class="volume" min="0" max="100" value="50" aria-label="Громкость">
+            </div>
+            <div class="progress-bar">
+                <progress value="35" max="100"></progress>
+            </div>
+            <div class="track-info">
+                <span>Название трека - Исполнитель</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Kringe-Music</h3>
+                <p>Ваш музыкальный спутник. Слушайте музыку где угодно и когда угодно.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="playlists.html">Медиатека</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 Kringe-Music. Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>
