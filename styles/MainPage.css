@@ -1,0 +1,343 @@
+@import url('common.css');
+
+/* Секции с увеличенными верхними отступами */
+.news, 
+.new-releases, 
+.top-tracks, 
+.top-artists, 
+.playlist {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Все заголовки  внутри main */
+.news h2, 
+.new-releases h2, 
+.top-tracks h2, 
+.top-artists h2, 
+.playlist h2 {
+    padding-left: 2rem;
+    margin-bottom: 2rem;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+
+/* Контейнер для новостей и треков */
+.news-container,
+.tracks-container {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Карточки новостей и треков  */
+.news-card,
+.track-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid #333;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Карточки новостей */
+.news-card h3 {
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.news-card p {
+    color: rgba(224, 224, 224, 0.8);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    flex-grow: 1;
+}
+
+.news-card time {
+    color: rgba(224, 224, 224, 0.6);
+    font-size: 0.85rem;
+    display: block;
+}
+
+/* Карточки треков */
+.track-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.track-card:hover {
+    background: #222;
+    border-color: #ff6b6b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.track-number {
+    font-weight: 700;
+    color: #ff6b6b;
+    min-width: 35px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.track-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.track-cover {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.track-details {
+    flex: 1;
+}
+
+.track-details h3 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.track-details p {
+    color: rgba(224, 224, 224, 0.8);
+    font-size: 0.9rem;
+}
+
+.track-duration {
+    color: rgba(224, 224, 224, 0.6);
+    font-weight: 500;
+    min-width: 50px;
+    text-align: right;
+}
+
+/* Контейнеры для релизов и исполнителей */
+.releases-container,
+.artists-container {
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Карточки релизов и исполнителей */
+.release-card,
+.artist-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid #333;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.release-card:hover,
+.artist-card:hover {
+    background: #222;
+    border-color: #ff6b6b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Карточки релизов */
+.release-cover {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
+}
+
+.release-info {
+    flex: 1;
+}
+
+.release-info h3 {
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.release-info p {
+    color: rgba(224, 224, 255, 0.8);
+    margin-bottom: 0.5rem;
+}
+
+.release-date {
+    color: rgba(224, 224, 224, 0.6);
+    font-size: 0.85rem;
+}
+
+/* Карточки исполнителей */
+.artist-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff6b6b;
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.artist-card:hover .artist-photo {
+    transform: scale(1.05);
+}
+
+.artist-info {
+    flex: 1;
+}
+
+.artist-info h3 {
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.artist-info p {
+    color: rgba(224, 224, 224, 0.8);
+    font-size: 0.9rem;
+}
+
+/* Плейлист дня */
+.playlist-container {
+    padding: 0 2rem;
+}
+
+.playlist-header {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid #333;
+    min-height: 200px;
+}
+
+.playlist-cover {
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
+}
+
+.playlist-info {
+    flex: 1;
+}
+
+.playlist-info h3 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.playlist-info p {
+    color: rgba(224, 224, 224, 0.8);
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+/* Медиа-запросы для MainPage */
+@media (max-width: 768px) {
+    .news h2, 
+    .new-releases h2, 
+    .top-tracks h2, 
+    .top-artists h2, 
+    .playlist h2 {
+        padding-left: 1rem;
+    }
+    
+    .news, 
+    .new-releases, 
+    .top-tracks, 
+    .top-artists, 
+    .playlist {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .news-container,
+    .tracks-container {
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .releases-container,
+    .artists-container {
+        gap: 1rem;
+        padding: 0 1rem;
+        grid-template-columns: 1fr;
+    }
+    
+    .playlist-container {
+        padding: 0 1rem;
+    }
+    
+    .artist-card,
+    .release-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        min-height: auto;
+    }
+    
+    .playlist-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        min-height: auto;
+    }
+    
+    .playlist-cover {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .news, 
+    .new-releases, 
+    .top-tracks, 
+    .top-artists, 
+    .playlist {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .news-container,
+    .tracks-container {
+        gap: 0.75rem;
+    }
+    
+    .releases-container,
+    .artists-container {
+        gap: 0.75rem;
+    }
+}
