@@ -24,26 +24,15 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    /* Только сине-зеленые оттенки для фона */
     background: radial-gradient(circle, rgba(64, 153, 153, 0.1) 0%, rgba(192, 238, 100, 0.05) 50%, transparent 70%);
     animation: rotate 20s linear infinite;
     z-index: -1;
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 .auth-logo {
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
-    /* Красный сохранен в логотипе */
     background: linear-gradient(135deg, #FF6B6B, #409999, #C0EE64);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -78,7 +67,6 @@
 }
 
 .tab.active {
-    /* Красный сохранен в активном табе */
     background: linear-gradient(135deg, #FF6B6B, #409999);
     color: #ffffff;
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
@@ -178,7 +166,6 @@
     padding: 1rem;
     border: none;
     border-radius: 12px;
-    /* Красный сохранен в кнопке */
     background: linear-gradient(135deg, #FF6B6B, #409999);
     color: #ffffff;
     font-size: 1rem;

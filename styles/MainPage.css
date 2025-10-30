@@ -1,6 +1,5 @@
 @import url('common.css');
 
-/* Секции с увеличенными верхними отступами */
 .news, 
 .new-releases, 
 .top-tracks, 
@@ -10,7 +9,6 @@
     margin-bottom: 3rem;
 }
 
-/* Все заголовки внутри main */
 .news h2, 
 .new-releases h2, 
 .top-tracks h2, 
