@@ -19,3 +19,5 @@ node_modules/
 # Игнорировать выходные сборки
 dist/
 build/
+
+project.init
