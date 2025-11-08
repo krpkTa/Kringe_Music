@@ -124,24 +124,92 @@ class FormValidator {
     submitLogin(data) {
         console.log('Login data:', data);
         
-        // ОТПРАВКА ФОРМЫ НА СЕРВЕР
-        
-        // Временная заглушка
-        alert('Вход выполнен успешно!');
-        window.location.href = 'index.html';
+        fetch('auth.php?action=login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                email: data.email,
+                password: data.password
+            })
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                this.displayMessage(result.message, 'success');
+                setTimeout(() => {
+                window.location.href = result.redirect || '/';
+            }, 1000);
+        } else {
+            this.displayMessage(result.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        this.displayMessage('Произошла ошибка при входе', 'error');
+    });
     }
     
     submitRegister(data) {
         console.log('Register data:', data);
         
-        // ОТПРАВКА ФОРМЫ НА СЕРВЕР
-        
-        // Временная заглушка
-        alert('Регистрация прошла успешно!');
-        
-        // Переключаем на форму входа
-        if (window.tabSwitcher) {
-            window.tabSwitcher.switchToTab('login');
+        fetch('auth.php?action=register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            'username': data.username,
+            'email': data.email,
+            'password': data.password,
+            'confirm_password': data.confirmPassword
+        })
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            this.displayMessage(result.message, 'success');
+            setTimeout(() => {
+                window.location.href = result.redirect || '/';
+            }, 1000);
+        } else {
+            this.displayMessage(result.message, 'error');
         }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        this.displayMessage('Произошла ошибка при регистрации', 'error');
+    });
+}
+
+// Добавьте эту вспомогательную функцию для отображения сообщений
+displayMessage(message, type) {
+    // Создаем или находим контейнер для сообщений
+    let messageContainer = document.getElementById('message-container');
+    if (!messageContainer) {
+        messageContainer = document.createElement('div');
+        messageContainer.id = 'message-container';
+        messageContainer.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 1000;';
+        document.body.appendChild(messageContainer);
     }
+    
+    const messageElement = document.createElement('div');
+    messageElement.textContent = message;
+    messageElement.style.cssText = `
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        max-width: 300px;
+        ${type === 'success' ? 'background: #4CAF50;' : 'background: #f44336;'}
+    `;
+    
+    messageContainer.appendChild(messageElement);
+    
+    // Автоматически удаляем сообщение через 5 секунд
+    setTimeout(() => {
+        messageElement.remove();
+    }, 5000);}
 }

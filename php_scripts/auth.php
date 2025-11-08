@@ -1,12 +1,19 @@
 <?php
 
+require_once __DIR__ . '/../models/UserModel.php';
+require_once __DIR__ . '/db_connect.php';
+
 // Стартуем сессию для хранения состояния входа
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+if (!$pdo) {
+    sendJsonResponse(false, 'Ошибка подключения к базе данных');
+    exit;
+}
 // Временное "хранилище" пользователей (в реальном приложении здесь была бы база данных)
-$users = [];
+$userModel = new UserModel($pdo);
 
 // Вспомогательные функции для валидации
 function validateEmail($email) {
@@ -26,17 +33,18 @@ function sanitizeInput($data) {
 }
 
 function sendJsonResponse($success, $message = '', $redirect = '') {
+    // Очищаем буфер вывода
     header('Content-Type: application/json');
     echo json_encode([
         'success' => $success,
         'message' => $message,
         'redirect' => $redirect
     ]);
-    exit;
+    exit; // ВАЖНО: завершаем выполнение скрипта
 }
 
 function handleLogin() {
-    global $users;
+    global $userModel;
     
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         http_response_code(405);
@@ -67,42 +75,38 @@ function handleLogin() {
         sendJsonResponse(false, implode(', ', $errors));
     }
     
-    // Имитация проверки пользователя (в реальном приложении - проверка в БД)
-    $userFound = false;
-    $userData = null;
-    
-    foreach ($users as $user) {
-        if (($user['email'] === $email || $user['username'] === $email) && $user['password'] === $password) {
-            $userFound = true;
-            $userData = $user;
-            break;
+    try {
+        // Ищем пользователя в базе данных
+        $userData = $userModel->findUserForLogin($email);
+        
+        if ($userData && password_verify($password, $userData['password'])) {
+            // Сохраняем в сессию
+            $_SESSION['user'] = [
+                'login' => $userData['login'],
+                'email' => $userData['email'],
+                'logged_in' => true,
+                'login_time' => time()
+            ];
+            
+            // Регенерируем ID сессии для безопасности
+            session_regenerate_id(true);
+            
+            sendJsonResponse(true, 'Вход выполнен успешно!', '/');
+        } else {
+            // Логируем неудачную попытку входа
+            error_log("Failed login attempt for: $email");
+            
+            sendJsonResponse(false, 'Неверный email/имя пользователя или пароль');
         }
-    }
-    
-    if ($userFound && $userData) {
-        // Сохраняем в сессию
-        $_SESSION['user'] = [
-            'id' => uniqid(), // В реальном приложении - ID из БД
-            'username' => $userData['username'],
-            'email' => $userData['email'],
-            'logged_in' => true,
-            'login_time' => time()
-        ];
         
-        // Регенерируем ID сессии для безопасности
-        session_regenerate_id(true);
-        
-        sendJsonResponse(true, 'Вход выполнен успешно!', '/');
-    } else {
-        // Логируем неудачную попытку входа (в реальном приложении)
-        error_log("Failed login attempt for email: $email");
-        
-        sendJsonResponse(false, 'Неверный email/имя пользователя или пароль');
+    } catch (Exception $e) {
+        error_log("Login error: " . $e->getMessage());
+        sendJsonResponse(false, 'Произошла ошибка при входе');
     }
 }
 
 function handleRegister() {
-    global $users;
+    global $userModel;
     
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         http_response_code(405);
@@ -143,29 +147,25 @@ function handleRegister() {
         sendJsonResponse(false, implode(', ', $errors));
     }
     
-    // Проверяем, не занят ли email или username
-    foreach ($users as $user) {
-        if ($user['email'] === $email) {
-            sendJsonResponse(false, 'Этот email уже занят');
+    try {
+        // Проверяем, не занят ли email или username
+        $existingUser = $userModel->userExists($username, $email);
+        if ($existingUser) {
+            if ($existingUser['login'] === $username) {
+                sendJsonResponse(false, 'Это имя пользователя уже занято');
+            }
+            if ($existingUser['email'] === $email) {
+                sendJsonResponse(false, 'Этот email уже занят');
+            }
         }
-        if ($user['username'] === $username) {
-            sendJsonResponse(false, 'Это имя пользователя уже занято');
-        }
-    }
-    
-    // "Регистрируем" пользователя
-    $users[] = [
-        'id' => uniqid(),
-        'username' => $username,
-        'email' => $email,
-        'password' => $password, // В реальном приложении: password_hash($password, PASSWORD_DEFAULT)
-        'created_at' => time()
-    ];
-    
+        
+        // Создаем пользователя в базе данных
+        $result = $userModel->createUser($username, $email, $password);
+        
+        if ($result) {
     // Автоматически входим после регистрации
     $_SESSION['user'] = [
-        'id' => $users[count($users)-1]['id'],
-        'username' => $username,
+        'login' => $username,
         'email' => $email,
         'logged_in' => true,
         'login_time' => time()
@@ -175,6 +175,18 @@ function handleRegister() {
     session_regenerate_id(true);
     
     sendJsonResponse(true, 'Регистрация прошла успешно!', '/');
+} else {
+    // ВРЕМЕННО: Показываем детальную ошибку для отладки
+    $errorMsg = $userModel->getLastError() ?: 'Неизвестная ошибка при создании пользователя';
+    error_log("Registration failed: " . $errorMsg);
+    sendJsonResponse(false, 'Ошибка БД: ' . $errorMsg);
+}
+        
+    } catch (Exception $e) {
+        error_log("Registration error: " . $e->getMessage());
+        // ВРЕМЕННО: показываем детальную ошибку для отладки
+        sendJsonResponse(false, 'Произошла ошибка при регистрации: ' . $e->getMessage());
+    }
 }
 
 function handleLogout() {
@@ -217,5 +229,22 @@ function generateCsrfToken() {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     return $_SESSION['csrf_token'];
+}
+
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+        case 'register':
+            handleRegister();
+            break;
+        case 'login':
+            handleLogin();
+            break;
+        case 'logout':
+            handleLogout();
+            break;
+        default:
+            http_response_code(400);
+            sendJsonResponse(false, 'Неизвестное действие');
+    }
 }
 ?>
