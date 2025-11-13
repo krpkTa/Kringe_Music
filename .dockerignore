@@ -1,9 +1,0 @@
-.git
-.gitignore
-README.md
-.env
-node_modules
-*.log
-docker-compose.yml
-vendor/*
-!vendor/autoload.php
