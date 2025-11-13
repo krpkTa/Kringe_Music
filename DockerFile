@@ -1,0 +1,43 @@
+# Используем официальный образ PHP с Apache
+FROM php:8.2-apache
+
+# Установка системных зависимостей
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Установка расширений PHP
+RUN docker-php-ext-install pdo pdo_pgsql pgsql zip
+
+# Включение mod_rewrite для Apache
+RUN a2enmod rewrite
+
+# Копирование файлов приложения
+COPY . /var/www/html/
+
+# Настройка прав доступа
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage
+
+# Установка Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Установка зависимостей через Composer (если есть composer.json)
+# RUN composer install --no-dev --optimize-autoloader
+
+# Настройка документа Apache для Render
+ENV APACHE_DOCUMENT_ROOT /var/www/html
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Порт для Render
+EXPOSE 8080
+
+# Настройка Apache для работы на порту 8080 (требуется Render)
+RUN sed -i 's/80/8080/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+
+CMD ["apache2-foreground"]
