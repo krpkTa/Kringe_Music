@@ -3,6 +3,7 @@
 require_once 'php_scripts/router.php';
 require_once 'php_scripts/db_connect.php';
 require_once 'php_scripts/auth.php'; 
+
 $router = new Router();
 
 function serveHtmlFile($filename) {
