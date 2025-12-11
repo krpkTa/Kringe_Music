@@ -1,7 +1,7 @@
 <?php
-
 require_once 'php_scripts/router.php';
 require_once 'php_scripts/db_connect.php';
+require_once 'php_scripts/mongo_connect.php';
 require_once 'php_scripts/auth.php'; 
 
 $router = new Router();
@@ -27,6 +27,9 @@ function serveHtmlFile($filename) {
         'action="login.html"' => 'action="/login"',
         
         'src="/scripts/auth.js"' => 'src="/scripts/auth.js"',
+        'src="js/news.js"' => 'src="/js/news.js"',
+        '../api/newsApi.php' => '/api/news',
+        'api/newsApi.php' => '/api/news',
     ];
     
     $content = str_replace(array_keys($replacements), array_values($replacements), $content);
@@ -34,7 +37,7 @@ function serveHtmlFile($filename) {
     echo $content;
 }
 
-// Маршруты
+// Маршруты для страниц
 $router->addRoute('/', function() {
     serveHtmlFile('index.html');
 });
@@ -47,17 +50,50 @@ $router->addRoute('/playlists', function() {
     serveHtmlFile('playlists.html');
 });
 
-// API маршруты для авторизации
+// API маршруты
 $router->addRoute('/api/login', function() {
+    require_once 'php_scripts/auth.php';
     handleLogin();
 });
 
 $router->addRoute('/api/register', function() {
+    require_once 'php_scripts/auth.php';
     handleRegister();
 });
 
 $router->addRoute('/api/logout', function() {
+    require_once 'php_scripts/auth.php';
     handleLogout();
+});
+
+// Маршруты для новостей
+$router->addRoute('/api/news', function() {
+    require_once 'api/newsApi.php';
+});
+
+$router->addRoute('/api/news/init', function() {
+    require_once 'api/newsApi.php';
+});
+
+// Статические файлы
+$router->addRoute('/scripts/news.js', function() {
+    if (file_exists('scripts/news.js')) {
+        header('Content-Type: application/javascript');
+        readfile('scripts/news.js');
+    } else {
+        http_response_code(404);
+        echo 'File not found';
+    }
+});
+
+$router->addRoute('/scripts/auth.js', function() {
+    if (file_exists('scripts/auth.js')) {
+        header('Content-Type: application/javascript');
+        readfile('scripts/auth.js');
+    } else {
+        http_response_code(404);
+        echo 'File not found';
+    }
 });
 
 $router->handleRequest($_SERVER['REQUEST_URI']);
