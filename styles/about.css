@@ -1,0 +1,265 @@
+@import url('common.css');
+
+.about-section {
+    padding: 2rem;
+}
+
+.about-section h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #FF6B6B, #409999);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.about-text {
+    background: rgba(26, 26, 46, 0.8);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(64, 153, 153, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.about-text p {
+    color: rgba(224, 224, 224, 0.9);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.feedback-form-container {
+    background: rgba(26, 26, 46, 0.8);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(64, 153, 153, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.feedback-form-container h3 {
+    color: #C0EE64;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feedback-form-container p {
+    color: rgba(224, 224, 224, 0.8);
+    margin-bottom: 1.5rem;
+}
+
+.feedback-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.feedback-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+.feedback-form input[type="email"],
+.feedback-form textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid rgba(64, 153, 153, 0.5);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feedback-form input[type="email"]:focus,
+.feedback-form textarea:focus {
+    outline: none;
+    border-color: #C0EE64;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba(192, 238, 100, 0.15);
+}
+
+
+.error-message {
+    display: none;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #FF6B6B;
+    background: rgba(244, 67, 54, 0.15);
+    border: 1px solid rgba(244, 67, 54, 0.4);
+    border-radius: 8px;
+    animation: errorFadeIn 0.3s ease-out;
+}
+
+
+@keyframes errorFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.feedback-form input[type="email"].has-error,
+.feedback-form textarea.has-error {
+    border-color: #FF6B6B;
+    background: rgba(244, 67, 54, 0.1);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
+}
+
+
+.error-message::before {
+    content: "⚠ ";
+    margin-right: 0.25rem;
+}
+
+
+
+.rating-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.rating-stars input {
+    display: none;
+}
+
+.rating-stars label {
+    font-size: 2rem;
+    color: rgba(224, 224, 224, 0.3);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0 0.25rem;
+}
+
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    color: #FF6B6B;
+}
+
+.rating-stars input:checked ~ label {
+    color: #FF6B6B;
+}
+
+.rating-stars input:checked + label:hover,
+.rating-stars input:checked + label:hover ~ label {
+    color: #FF6B6B;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #FF6B6B, #409999);
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+.btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.feedback-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+    display: none;
+}
+
+.feedback-message.success {
+    display: block;
+    background: rgba(76, 175, 80, 0.2);
+    border: 1px solid rgba(76, 175, 80, 0.5);
+    color: #C0EE64;
+}
+
+.feedback-message.error {
+    display: block;
+    background: rgba(244, 67, 54, 0.2);
+    border: 1px solid rgba(244, 67, 54, 0.5);
+    color: #FF6B6B;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(64, 153, 153, 0.3);
+}
+
+#user-display {
+    font-weight: 600;
+    color: #C0EE64;
+}
+
+#user-email {
+    font-size: 0.85rem;
+    color: rgba(224, 224, 224, 0.7);
+}
+
+@media (max-width: 1024px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 1rem;
+    }
+    
+    .about-text,
+    .feedback-form-container {
+        padding: 1.5rem;
+    }
+    
+    .user-info {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .rating-stars label {
+        font-size: 1.5rem;
+    }
+    
+    
+    .error-message {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
