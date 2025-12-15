@@ -37,7 +37,6 @@ function serveHtmlFile($filename) {
     echo $content;
 }
 
-// Маршруты для страниц
 $router->addRoute('/', function() {
     serveHtmlFile('index.html');
 });

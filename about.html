@@ -6,6 +6,7 @@
     <title>Kringe-Music - О нас</title>
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/about.css">
+    <script src="scripts/auth-manager.js"></script>
 </head>
 <body>
     <div class="main-container">
@@ -13,9 +14,9 @@
             <div class="logo">Kringe-Music</div>
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="/">Главная</a></li>
-                    <li><a href="/playlists">Моя медиатека</a></li>
-                    <li><a href="/about" class="active">О нас</a></li>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="playlists.html">Моя медиатека</a></li>
+                    <li><a href="about.html" class="active">О нас</a></li>
                 </ul>
             </nav>
         </aside>
@@ -23,7 +24,7 @@
         <div class="main-content">
             <header>
                 <div class="header-controls">
-                    <div class="user-info">
+                    <div class="user-info" style="display: none;">
                         <span id="user-display">Гость</span>
                         <span id="user-email"></span>
                     </div>
@@ -31,7 +32,7 @@
                         <input type="search" placeholder="Поиск музыки..." aria-label="Поиск музыки">
                         <button type="submit">Найти</button>
                     </form>
-                    <button class="login-btn" onclick="location.href='/login'">Вход</button>
+                    <button class="login-btn">Вход</button>
                 </div>
             </header>
 
@@ -42,6 +43,16 @@
                         <div class="about-text">
                             <p>Добро пожаловать в Kringe-Music — ваш музыкальный спутник в мире звуков!</p>
                             <p>Мы создали эту платформу для настоящих ценителей музыки, где каждый может найти то, что ему по душе.</p>
+                            <p>Наша миссия — сделать прослушивание музыки максимально удобным и приятным для каждого пользователя.</p>
+                            <p>С Kringe-Music вы можете:</p>
+                            <ul style="color: rgba(224, 224, 224, 0.9); margin-left: 1.5rem; margin-top: 0.5rem;">
+                                <li>Открывать новые музыкальные горизонты</li>
+                                <li>Создавать свои уникальные плейлисты</li>
+                                <li>Следить за новыми релизами любимых исполнителей</li>
+                                <li>Делиться музыкой с друзьями</li>
+                                <li>Находить треки по настроению</li>
+                            </ul>
+                            <p style="margin-top: 1.5rem;">Присоединяйтесь к нашему музыкальному сообществу уже сегодня!</p>
                         </div>
                         
                         <div class="feedback-form-container">
@@ -104,9 +115,10 @@
                     <div class="footer-section">
                         <h4>Навигация</h4>
                         <ul>
-                            <li><a href="/">Главная</a></li>
-                            <li><a href="/playlists">Медиатека</a></li>
-                            <li><a href="/about">О нас</a></li>
+                            <li><a href="index.html">Главная</a></li>
+                            <li><a href="playlists.html">Медиатека</a></li>
+                            <li><a href="about.html">О нас</a></li>
+                            <li><a href="login.html">Вход/Регистрация</a></li>
                         </ul>
                     </div>
                 </div>
@@ -177,5 +189,12 @@
 
     <script src="scripts/player.js"></script>
     <script src="scripts/feedback.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof AuthManager !== 'undefined') {
+                window.authManager = new AuthManager();
+            }
+        });
+    </script>
 </body>
 </html>
