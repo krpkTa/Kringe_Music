@@ -50,7 +50,11 @@ $router->addRoute('/playlists', function() {
     serveHtmlFile('playlists.html');
 });
 
-// API маршруты
+$router->addRoute('/about', function() {
+    serveHtmlFile('about.html');
+});
+
+
 $router->addRoute('/api/login', function() {
     require_once 'php_scripts/auth.php';
     handleLogin();
@@ -66,34 +70,8 @@ $router->addRoute('/api/logout', function() {
     handleLogout();
 });
 
-// Маршруты для новостей
-$router->addRoute('/api/news', function() {
-    require_once 'api/newsApi.php';
-});
-
-$router->addRoute('/api/news/init', function() {
-    require_once 'api/newsApi.php';
-});
-
-// Статические файлы
-$router->addRoute('/scripts/news.js', function() {
-    if (file_exists('scripts/news.js')) {
-        header('Content-Type: application/javascript');
-        readfile('scripts/news.js');
-    } else {
-        http_response_code(404);
-        echo 'File not found';
-    }
-});
-
-$router->addRoute('/scripts/auth.js', function() {
-    if (file_exists('scripts/auth.js')) {
-        header('Content-Type: application/javascript');
-        readfile('scripts/auth.js');
-    } else {
-        http_response_code(404);
-        echo 'File not found';
-    }
+$router->addRoute('/api/feedback', function() {
+    require_once 'php_scripts/feedback_api.php';
 });
 
 $router->handleRequest($_SERVER['REQUEST_URI']);
