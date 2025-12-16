@@ -79,6 +79,11 @@ $router->addRoute('/api/releases', function() {
     handleReleases();
 });
 
+$router->addRoute('/api/daily-playlist', function() {
+    require_once 'php_scripts/music_api.php';
+    handleDailyPlaylist();
+});
+
 $router->addRoute('/api/tracks', function() {
     require_once 'php_scripts/music_api.php';
     handleTracks();

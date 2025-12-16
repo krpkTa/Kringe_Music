@@ -14,7 +14,104 @@ function getAllArtists($pdo) {
         return [];
     }
 }
+// Добавьте эти функции в php_scripts/music_queries.php
 
+/**
+ * Получить случайные треки для плейлиста дня
+ * @param int $limit Количество треков
+ * @return array Массив треков
+ */
+function getDailyPlaylistTracks($pdo, $limit = 15) {
+    try {
+        $stmt = $pdo->prepare("
+            SELECT 
+                t.id,
+                t.title,
+                t.duration,
+                t.album_id,
+                t.artist_id,
+                t.img_url,
+                t.track_url,
+                a.name as artist_name,
+                a.genre as artist_genre,
+                a.image as artist_image
+            FROM tracks t
+            LEFT JOIN artist a ON t.artist_id = a.id
+            ORDER BY RANDOM()
+            LIMIT ?
+        ");
+        
+        $stmt->execute([$limit]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        error_log("Error getting daily playlist tracks: " . $e->getMessage());
+        return [];
+    }
+}
+
+/**
+ * Получить количество активных треков в базе
+ * @return int Количество треков
+ */
+function getActiveTracksCount($pdo) {
+    try {
+        $stmt = $pdo->query("SELECT COUNT(*) as count FROM tracks WHERE is_active = 1");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)($result['count'] ?? 0);
+    } catch(PDOException $e) {
+        error_log("Error getting active tracks count: " . $e->getMessage());
+        return 0;
+    }
+}
+// Добавьте эту функцию в music_queries.php после getRandomReleases
+
+/**
+ * Получить случайные треки (расширенная версия для плейлиста дня)
+ * @param int $limit Количество треков
+ * @return array Массив треков
+ */
+function getRandomTracks($pdo, $limit = 15) {
+    try {
+        $stmt = $pdo->prepare("
+            SELECT 
+                t.id,
+                t.title,
+                t.duration,
+                t.album_id,
+                t.artist_id,
+                t.img_url,
+                t.track_url,
+                a.name as artist_name,
+                a.genre as artist_genre,
+                a.image as artist_image
+            FROM tracks t
+            LEFT JOIN artist a ON t.artist_id = a.id
+            ORDER BY RANDOM()
+            LIMIT ?
+        ");
+        
+        $stmt->execute([$limit]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        error_log("Error getting random tracks: " . $e->getMessage());
+        return [];
+    }
+}
+
+/**
+ * Получить количество треков в базе
+ * @return int Количество треков
+ */
+function getTracksCount($pdo) {
+    try {
+        $stmt = $pdo->query("SELECT COUNT(*) as count FROM tracks");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)($result['count'] ?? 0);
+    } catch(PDOException $e) {
+        error_log("Error getting tracks count: " . $e->getMessage());
+        return 0;
+    }
+}
 /**
  * Получить исполнителя по ID
  * @param int $id ID исполнителя

@@ -97,7 +97,98 @@ function handleReleases() {
     
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
 }
-
+function handleDailyPlaylist() {
+    setApiHeaders();
+    
+    $response = [
+        'success' => false,
+        'tracks' => [],
+        'error' => null,
+        'message' => null,
+        'cached' => false
+    ];
+    
+    try {
+        if (!$GLOBALS['pdo']) {
+            throw new Exception('Нет подключения к базе данных');
+        }
+        
+        $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 15;
+        $limit = min($limit, 50);
+        
+        // Получаем случайные треки без created_at
+        $stmt = $GLOBALS['pdo']->prepare("
+            SELECT 
+                t.id,
+                t.title,
+                t.duration,
+                t.album_id,
+                t.artist_id,
+                t.img_url,
+                t.track_url,
+                a.name as artist_name,
+                a.genre as artist_genre,
+                a.image as artist_image
+            FROM tracks t
+            LEFT JOIN artist a ON t.artist_id = a.id
+            ORDER BY RANDOM()
+            LIMIT :limit
+        ");
+        
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        $tracks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        if (empty($tracks)) {
+            $response['message'] = 'В базе данных пока нет треков';
+            $response['success'] = true; // Не ошибка, просто нет данных
+        } else {
+            $formattedTracks = [];
+            
+            foreach ($tracks as $track) {
+                // Форматируем продолжительность
+                $duration = $track['duration'] ?? 0;
+                $durationFormatted = gmdate("i:s", $duration);
+                
+                // Определяем обложку (приоритет: трек -> исполнитель -> дефолтная)
+                $cover = 'images/default-track.jpg';
+                if (!empty($track['img_url'])) {
+                    $cover = $track['img_url'];
+                } elseif (!empty($track['artist_image'])) {
+                    $cover = $track['artist_image'];
+                }
+                
+                $formattedTracks[] = [
+                    'id' => $track['id'],
+                    'title' => htmlspecialchars($track['title'] ?? 'Без названия'),
+                    'artist' => htmlspecialchars($track['artist_name'] ?? 'Неизвестный исполнитель'),
+                    'artist_id' => $track['artist_id'],
+                    'duration' => $duration,
+                    'duration_formatted' => $durationFormatted,
+                    'cover' => $cover,
+                    'album_id' => $track['album_id'],
+                    'album' => $track['album_id'] ? 'Альбом #' . $track['album_id'] : 'Без альбома',
+                    'genre' => htmlspecialchars($track['artist_genre'] ?? 'Разнообразный'),
+                    'track_url' => $track['track_url'] ?? ''
+                ];
+            }
+            
+            $response['success'] = true;
+            $response['tracks'] = $formattedTracks;
+            $response['count'] = count($formattedTracks);
+            $response['date'] = date('Y-m-d');
+            $response['message'] = 'Плейлист дня успешно загружен';
+        }
+        
+    } catch (PDOException $e) {
+        $response['error'] = 'Ошибка базы данных: ' . $e->getMessage();
+    } catch (Exception $e) {
+        $response['error'] = $e->getMessage();
+    }
+    
+    echo json_encode($response, JSON_UNESCAPED_UNICODE);
+}
+    
 // Обработчик для получения всех треков
 function handleTracks() {
     setApiHeaders();

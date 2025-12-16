@@ -6,6 +6,7 @@
     <title>Kringe-Music - Главная</title>
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/MainPage.css">
+    <link rel="stylesheet" href="styles/playlist.css">
     <script src="scripts/auth-manager.js"></script>
     <link rel="stylesheet" href="/styles/search.css">
 </head>
@@ -155,8 +156,10 @@
         </div>
     </section>
 
+    <script src="scripts/player.js"></script>
     <script src="scripts/news.js"></script>
     <script src="scripts/load-releases.js"></script>
+    <script src="scripts/load-playlist.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof AuthManager !== 'undefined') {
@@ -166,4 +169,4 @@
     </script>
     <script src="scripts/search.js"></script>
 </body>
-</html>
+</html> 
