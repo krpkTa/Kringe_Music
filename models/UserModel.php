@@ -25,7 +25,6 @@ class UserModel {
 
     public function createUser($username, $email, $password) {
     try {
-        // Проверяем длину логина и email
         if (strlen($username) > 50) {
             $this->lastError = 'Логин слишком длинный (максимум 50 символов)';
             return false;
@@ -42,7 +41,6 @@ class UserModel {
             return false;
         }
 
-        // Проверяем длину хеша пароля
         if (strlen($hashedPassword) > 100) {
             $this->lastError = 'Хеш пароля слишком длинный (максимум 100 символов)';
             return false;
@@ -50,17 +48,14 @@ class UserModel {
 
         $stmt = $this->pdo->prepare("INSERT INTO users (login, email, password) VALUES (?, ?, ?)");
         
-        // Выполняем запрос
         $result = $stmt->execute([$username, $email, $hashedPassword]);
         
         if ($result) {
             return true;
         } else {
-            // Получаем детальную информацию об ошибке PostgreSQL
             $errorInfo = $stmt->errorInfo();
             $this->lastError = $errorInfo[2] ?? 'Неизвестная ошибка базы данных';
-            
-            // Логируем дополнительную информацию
+        
             error_log("PostgreSQL error: " . print_r($errorInfo, true));
             return false;
         }

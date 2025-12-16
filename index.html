@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kringe-Music</title>
+    <title>Kringe-Music - Главная</title>
+    <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/MainPage.css">
+    <script src="scripts/auth-manager.js"></script>
 </head>
 <body>
     <div class="main-container">
@@ -18,6 +20,7 @@
                     <li><a href="#top-tracks">Топ 10 треков</a></li>
                     <li><a href="#top-artists">Топ 10 исполнителей</a></li>
                     <li><a href="#playlist">Плейлист дня</a></li>
+                    <li><a href="/about">О нас</a></li>
                     <li><a href="playlists.html">Моя медиатека</a></li>
                 </ul>
             </nav>
@@ -26,11 +29,15 @@
         <div class="main-content">
             <header>
                 <div class="header-controls">
+                    <div class="user-info" style="display: none;">
+                        <span id="user-display">Гость</span>
+                        <span id="user-email"></span>
+                    </div>
                     <form class="search-form">
                         <input type="search" placeholder="Поиск музыки..." aria-label="Поиск музыки">
                         <button type="submit">Найти</button>
                     </form>
-                    <button class="login-btn" onclick="location.href='/login'">Вход</button>
+                    <button class="login-btn">Вход</button>
                 </div>
             </header>
 
@@ -38,9 +45,8 @@
                 <section class="news" id="news">
                     <h2>Новости музыки</h2>
                     <div class="news-container">
-        <!-- Новости будут загружаться через JavaScript -->
-        <div class="loading-news">Загрузка новостей...</div>
-    </div>
+                        <div class="loading-news">Загрузка новостей...</div>
+                    </div>
                 </section>
 
                 <section class="new-releases" id="new-releases">
@@ -77,6 +83,8 @@
                         <ul>
                             <li><a href="index.html">Главная</a></li>
                             <li><a href="playlists.html">Медиатека</a></li>
+                            <li><a href="about.html">О нас</a></li>
+                            <li><a href="login.html">Вход/Регистрация</a></li>
                         </ul>
                     </div>
                 </div>
@@ -145,7 +153,15 @@
             <span>Название трека - Исполнитель</span>
         </div>
     </section>
+
     <script src="scripts/news.js"></script>
     <script src="scripts/load-releases.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof AuthManager !== 'undefined') {
+                window.authManager = new AuthManager();
+            }
+        });
+    </script>
 </body>
 </html>

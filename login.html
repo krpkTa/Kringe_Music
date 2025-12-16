@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kringe-Music - Вход и регистрация</title>
+    <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/login.css">
+    <script src="scripts/auth-manager.js"></script>
 </head>
 <body>
     <div class="main-container">
@@ -12,8 +14,9 @@
             <div class="logo">Kringe-Music</div>
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="/">Главная</a></li>
-                    <li><a href="/playlists">Моя медиатека</a></li>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="playlists.html">Моя медиатека</a></li>
+                    <li><a href="about.html">О нас</a></li>
                 </ul>
             </nav>
         </aside>
@@ -21,10 +24,15 @@
         <div class="main-content">
             <header>
                 <div class="header-controls">
+                    <div class="user-info" style="display: none;">
+                        <span id="user-display">Гость</span>
+                        <span id="user-email"></span>
+                    </div>
                     <form class="search-form">
                         <input type="search" placeholder="Поиск музыки..." aria-label="Поиск музыки">
                         <button type="submit">Найти</button>
                     </form>
+                    <button class="login-btn">Вход</button>
                 </div>
             </header>
 
@@ -42,17 +50,25 @@
                         <form id="loginForm">
                             <div class="form-group">
                                 <label for="login-email">Email или имя пользователя</label>
-                                <input type="text" id="login-email" name="email" required>
+                                <input type="text" id="login-email" name="email" required 
+                                       placeholder="example@mail.com или username">
                                 <div class="error-message" id="login-email-error"></div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="login-password">Пароль</label>
-                                <input type="password" id="login-password" name="password" required>
+                                <input type="password" id="login-password" name="password" required 
+                                       placeholder="Введите пароль">
                                 <div class="error-message" id="login-password-error"></div>
                             </div>
                             
                             <button type="submit" class="btn">Войти</button>
+                            
+                            <div style="margin-top: 1rem; text-align: center;">
+                                <a href="index.html" style="color: #409999; text-decoration: none; font-size: 0.9rem;">
+                                    ← Вернуться на главную
+                                </a>
+                            </div>
                         </form>
                     </div>
                     
@@ -61,29 +77,39 @@
                         <form id="registerForm">
                             <div class="form-group">
                                 <label for="register-username">Имя пользователя</label>
-                                <input type="text" id="register-username" name="username" required>
+                                <input type="text" id="register-username" name="username" required 
+                                       placeholder="Придумайте имя пользователя">
                                 <div class="error-message" id="register-username-error"></div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="register-email">Email</label>
-                                <input type="email" id="register-email" name="email" required>
+                                <input type="email" id="register-email" name="email" required 
+                                       placeholder="example@mail.com">
                                 <div class="error-message" id="register-email-error"></div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="register-password">Пароль</label>
-                                <input type="password" id="register-password" name="password" required>
+                                <input type="password" id="register-password" name="password" required 
+                                       placeholder="Не менее 6 символов">
                                 <div class="error-message" id="register-password-error"></div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="register-confirm-password">Подтвердите пароль</label>
-                                <input type="password" id="register-confirm-password" name="confirm_password" required>
+                                <input type="password" id="register-confirm-password" name="confirm_password" required 
+                                       placeholder="Повторите пароль">
                                 <div class="error-message" id="register-confirm-password-error"></div>
                             </div>
                             
                             <button type="submit" class="btn">Зарегистрироваться</button>
+                            
+                            <div style="margin-top: 1rem; text-align: center;">
+                                <a href="index.html" style="color: #409999; text-decoration: none; font-size: 0.9rem;">
+                                    ← Вернуться на главную
+                                </a>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -99,8 +125,9 @@
                     <div class="footer-section">
                         <h4>Навигация</h4>
                         <ul>
-                            <li><a href="/">Главная</a></li>
-                            <li><a href="/playlists">Медиатека</a></li>
+                            <li><a href="index.html">Главная</a></li>
+                            <li><a href="playlists.html">Медиатека</a></li>
+                            <li><a href="about.html">О нас</a></li>
                         </ul>
                     </div>
                 </div>
@@ -170,8 +197,14 @@
         </div>
     </section>
 
-        <script src="scripts/TabSwitcher.js"></script>
-        <script src="scripts/FormValidator.js"></script>
-        <script src="scripts/auth.js"></script>
+    <script src="scripts/TabSwitcher.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof AuthManager !== 'undefined') {
+                window.authManager = new AuthManager();
+            }
+        });
+    </script>
 </body>
 </html>
