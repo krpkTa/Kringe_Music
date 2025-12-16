@@ -110,7 +110,7 @@ $router->addRoute('/api/search', function() {
 });
 
 $router->addRoute('/api/news', function() {
-    require_once 'php_scripts/news_api.php';
+    require_once 'api/newsApi.php';
 });
 
 // Обработка запроса
