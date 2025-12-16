@@ -8,17 +8,33 @@ class Router {
     }
     
     public function handleRequest($uri) {
+        // Убираем параметры запроса
         $uri = strtok($uri, '?');
         
         if (empty($uri) || $uri[0] !== '/') {
             $uri = '/' . $uri;
         }
         
+        // Проверяем точные совпадения
         if (array_key_exists($uri, $this->routes)) {
             call_user_func($this->routes[$uri]);
-        } else {
-            $this->show404();
+            return;
         }
+        
+        // Проверяем динамические маршруты (с параметрами)
+        foreach ($this->routes as $route => $callback) {
+            // Заменяем параметры на регулярные выражения
+            $pattern = preg_replace('/\{([^}]+)\}/', '([^/]+)', $route);
+            $pattern = '#^' . $pattern . '$#';
+            
+            if (preg_match($pattern, $uri, $matches)) {
+                array_shift($matches); // Убираем полное совпадение
+                call_user_func_array($callback, $matches);
+                return;
+            }
+        }
+        
+        $this->show404();
     }
     
     private function show404() {

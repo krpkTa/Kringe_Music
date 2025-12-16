@@ -25,6 +25,331 @@
     background-clip: text;
 }
 
+/* ===== НОВЫЕ СТИЛИ ДЛЯ РЕЛИЗОВ ===== */
+
+/* Контейнер для релизов */
+.releases-container {
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Карточка релиза с новой структурой */
+.release-card {
+    background: rgba(26, 26, 46, 0.8);
+    border-radius: 16px;
+    padding: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(64, 153, 153, 0.3);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
+}
+
+.release-card:hover {
+    border-color: #C0EE64;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(192, 238, 100, 0.2);
+}
+
+/* Бейдж типа релиза */
+.release-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #409999;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7em;
+    font-weight: 600;
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Контейнер для обложки */
+.release-cover-container {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.release-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.release-card:hover .release-cover {
+    transform: scale(1.05);
+}
+
+/* Большая кнопка воспроизведения на обложке */
+.play-release-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #409999, #C0EE64);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.release-card:hover .play-release-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.play-release-btn:hover {
+    background: linear-gradient(135deg, #C0EE64, #409999);
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.play-release-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Контент релиза */
+.release-content {
+    padding: 1.2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.release-title {
+    color: #ffffff;
+    margin: 0 0 8px 0;
+    font-size: 1.1em;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.release-artist {
+    color: #FF6B6B;
+    margin: 0 0 12px 0;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+/* Мета информация */
+.release-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.8em;
+    color: rgba(224, 224, 224, 0.8);
+}
+
+.release-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.release-meta svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+}
+
+/* Кнопки действий */
+.release-actions {
+    display: flex;
+    flex-direction: row; /* Изменено с column на row */
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(64, 153, 153, 0.2);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.release-actions button {
+    background: rgba(64, 153, 153, 0.2);
+    border: 1px solid rgba(64, 153, 153, 0.5);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #409999;
+    padding: 0;
+}
+
+.release-actions button:hover {
+    background: #409999;
+    color: white;
+    transform: scale(1.05);
+    border-color: #409999;
+}
+
+.release-actions button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Жанр */
+.release-genre {
+    margin-top: auto;
+}
+
+.genre-tag {
+    display: inline-block;
+    background: rgba(64, 153, 153, 0.2);
+    color: #409999;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 500;
+    border: 1px solid rgba(64, 153, 153, 0.3);
+}
+
+/* Градиентный эффект на обложке при наведении */
+.release-cover-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(26, 26, 46, 0.7), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.release-card:hover .release-cover-container::before {
+    opacity: 0.5;
+}
+
+/* Состояния загрузки и ошибок */
+.loading-releases,
+.releases-error,
+.no-releases {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    background: rgba(26, 26, 46, 0.5);
+    border-radius: 16px;
+    border: 2px dashed rgba(64, 153, 153, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.loading-spinner {
+    border: 3px solid rgba(64, 153, 153, 0.2);
+    border-top: 3px solid #409999;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-icon,
+.no-data-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #409999;
+}
+
+.retry-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #409999, #C0EE64);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.retry-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(64, 153, 153, 0.4);
+}
+
+.add-music-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #409999, #C0EE64);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.add-music-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(64, 153, 153, 0.4);
+}
+
+.add-music-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Анимация появления карточек */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.release-card {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+/* Задержка для каждой карточки */
+.release-card:nth-child(1) { animation-delay: 0.1s; }
+.release-card:nth-child(2) { animation-delay: 0.2s; }
+.release-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* ===== СТАРЫЕ СТИЛИ (ОСТАВЛЯЕМ ТОЛЬКО ДЛЯ ДРУГИХ КАРТОЧЕК) ===== */
+
 /* Контейнер для новостей и треков */
 .news-container,
 .tracks-container {
@@ -139,8 +464,7 @@
     text-align: right;
 }
 
-/* Контейнеры для релизов и исполнителей */
-.releases-container,
+/* Контейнеры для исполнителей */
 .artists-container {
     padding: 0 2rem;
     display: grid;
@@ -148,8 +472,7 @@
     gap: 1.5rem;
 }
 
-/* Карточки релизов и исполнителей */
-.release-card,
+/* Карточки исполнителей */
 .artist-card {
     background: rgba(26, 26, 46, 0.8);
     border-radius: 16px;
@@ -163,50 +486,10 @@
     backdrop-filter: blur(10px);
 }
 
-.release-card:hover,
 .artist-card:hover {
     border-color: #C0EE64;
     transform: translateY(-5px);
     box-shadow: 0 12px 30px rgba(192, 238, 100, 0.2);
-}
-
-/* Карточки релизов */
-.release-cover {
-    width: 100px;
-    height: 100px;
-    border-radius: 12px;
-    object-fit: cover;
-    box-shadow: 0 8px 20px rgba(64, 153, 153, 0.4);
-    flex-shrink: 0;
-    border: 2px solid #409999;
-    transition: all 0.3s ease;
-}
-
-.release-card:hover .release-cover {
-    border-color: #C0EE64;
-    transform: scale(1.05);
-}
-
-.release-info {
-    flex: 1;
-}
-
-.release-info h3 {
-    color: #FF6B6B;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
-    font-size: 1.1rem;
-}
-
-.release-info p {
-    color: #409999;
-    margin-bottom: 0.5rem;
-}
-
-.release-date {
-    color: #C0EE64;
-    font-size: 0.85rem;
-    font-weight: 500;
 }
 
 /* Карточки исполнителей */
@@ -313,7 +596,6 @@
 
 .news-card,
 .track-card,
-.release-card,
 .artist-card,
 .playlist-header {
     animation: fadeInUp 0.6s ease-out;
@@ -355,8 +637,7 @@
         padding: 0 1rem;
     }
     
-    .artist-card,
-    .release-card {
+    .artist-card {
         flex-direction: column;
         text-align: center;
         padding: 1.5rem;
@@ -373,6 +654,14 @@
     .playlist-cover {
         width: 140px;
         height: 140px;
+    }
+    
+    .release-card {
+        min-height: 320px;
+    }
+    
+    .release-cover-container {
+        height: 160px;
     }
 }
 

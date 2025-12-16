@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kringe-Music</title>
+    <title>Kringe-Music - Главная</title>
+    <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/MainPage.css">
+    <script src="scripts/auth-manager.js"></script>
     <link rel="stylesheet" href="/styles/search.css">
 </head>
-
 <body>
     <div class="main-container">
         <aside class="sidebar">
             <div class="logo">Kringe-Music</div>
             <nav class="sidebar-nav">
                 <ul>
-                    <nav class="sidebar-nav">
-                        <ul>
-                            <li><a href="index.html" class="active">Главная</a></li>
-                            <li><a href="#news">Новости музыки</a></li>
-                            <li><a href="#new-releases">Новые релизы</a></li>
-                            <li><a href="#top-tracks">Топ 10 треков</a></li>
-                            <li><a href="#top-artists">Топ 10 исполнителей</a></li>
-                            <li><a href="#playlist">Плейлист дня</a></li>
-                            <li><a href="/about">О нас</a></li> 
-                            <li><a href="playlists.html">Моя медиатека</a></li>
-                        </ul>
-                    </nav>
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="#news">Новости музыки</a></li>
+                    <li><a href="#new-releases">Новые релизы</a></li>
+                    <li><a href="#top-tracks">Топ 10 треков</a></li>
+                    <li><a href="#top-artists">Топ 10 исполнителей</a></li>
+                    <li><a href="#playlist">Плейлист дня</a></li>
+                    <li><a href="/about">О нас</a></li>
+                    <li><a href="playlists.html">Моя медиатека</a></li>
                 </ul>
             </nav>
         </aside>
@@ -34,11 +30,15 @@
         <div class="main-content">
             <header>
                 <div class="header-controls">
+                    <div class="user-info" style="display: none;">
+                        <span id="user-display">Гость</span>
+                        <span id="user-email"></span>
+                    </div>
                     <form class="search-form">
                         <input type="search" placeholder="Поиск музыки..." aria-label="Поиск музыки">
                         <button type="submit">Найти</button>
                     </form>
-                    <button class="login-btn" onclick="location.href='/login'">Вход</button>
+                    <button class="login-btn">Вход</button>
                 </div>
             </header>
 
@@ -46,106 +46,16 @@
                 <section class="news" id="news">
                     <h2>Новости музыки</h2>
                     <div class="news-container">
-        <!-- Новости будут загружаться через JavaScript -->
-        <div class="loading-news">Загрузка новостей...</div>
-    </div>
+                        <div class="loading-news">Загрузка новостей...</div>
+                    </div>
                 </section>
 
                 <section class="new-releases" id="new-releases">
-                    <h2>Новые релизы</h2>
-                    <div class="releases-container">
-                        <article class="release-card">
-                            <img src="images/new-release1.jpg" alt="Новый релиз 1" class="release-cover">
-                            <div class="release-info">
-                                <h3>Название альбома</h3>
-                                <p>Исполнитель</p>
-                                <span class="release-date">Дата выхода: 24.09.2025</span>
-                            </div>
-                        </article>
-                        <article class="release-card">
-                            <img src="images/new-release2.jpg" alt="Новый релиз 2" class="release-cover">
-                            <div class="release-info">
-                                <h3>Название альбома</h3>
-                                <p>Исполнитель</p>
-                                <span class="release-date">Дата выхода: 24.09.2025</span>
-                            </div>
-                        </article>
-                        <article class="release-card">
-                            <img src="images/new-release3.jpg" alt="Новый релиз 3" class="release-cover">
-                            <div class="release-info">
-                                <h3>Название альбома</h3>
-                                <p>Исполнитель</p>
-                                <span class="release-date">Дата выхода: 24.09.2025</span>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-                <section class="top-tracks" id="top-tracks">
-                    <h2>Топ 10 треков</h2>
-                    <div class="tracks-container">
-                        <article class="track-card">
-                            <span class="track-number">1</span>
-                            <div class="track-info">
-                                <img src="images/track1.jpg" alt="Обложка трека 1" class="track-cover">
-                                <div class="track-details">
-                                    <h3>Название трека</h3>
-                                    <p>Исполнитель</p>
-                                </div>
-                            </div>
-                            <span class="track-duration">3:45</span>
-                        </article>
-                        <article class="track-card">
-                            <span class="track-number">2</span>
-                            <div class="track-info">
-                                <img src="images/track2.jpg" alt="Обложка трека 2" class="track-cover">
-                                <div class="track-details">
-                                    <h3>Название трека</h3>
-                                    <p>Исполнитель</p>
-                                </div>
-                            </div>
-                            <span class="track-duration">4:20</span>
-                        </article>
-                        <article class="track-card">
-                            <span class="track-number">3</span>
-                            <div class="track-info">
-                                <img src="images/track3.jpg" alt="Обложка трека 3" class="track-cover">
-                                <div class="track-details">
-                                    <h3>Название трека</h3>
-                                    <p>Исполнитель</p>
-                                </div>
-                            </div>
-                            <span class="track-duration">5:15</span>
-                        </article>
-                    </div>
-                </section>
-
-                <section class="top-artists" id="top-artists">
-                    <h2>Топ 10 исполнителей</h2>
-                    <div class="artists-container">
-                        <article class="artist-card">
-                            <img src="images/artist1.jpg" alt="Исполнитель 1" class="artist-photo">
-                            <div class="artist-info">
-                                <h3>Исполнитель 1</h3>
-                                <p>Треков: 25</p>
-                            </div>
-                        </article>
-                        <article class="artist-card">
-                            <img src="images/artist2.jpg" alt="Исполнитель 2" class="artist-photo">
-                            <div class="artist-info">
-                                <h3>Исполнитель 2</h3>
-                                <p>Треков: 18</p>
-                            </div>
-                        </article>
-                        <article class="artist-card">
-                            <img src="images/artist3.jpg" alt="Исполнитель 3" class="artist-photo">
-                            <div class="artist-info">
-                                <h3>Исполнитель 3</h3>
-                                <p>Треков: 32</p>
-                            </div>
-                        </article>
-                    </div>
-                </section>
+        <h2>Новые релизы</h2>
+        <div class="releases-container" id="releases-container">
+            <!-- Релизы будут загружены через JavaScript -->
+        </div>
+    </section>
 
                 <section class="playlist" id="playlist">
                     <h2>Плейлист дня</h2>
@@ -168,16 +78,18 @@
                         <h3>Kringe-Music</h3>
                         <p>Ваш музыкальный спутник. Слушайте музыку где угодно и когда угодно.</p>
                     </div>
-
+                    
                     <div class="footer-section">
                         <h4>Навигация</h4>
                         <ul>
                             <li><a href="index.html">Главная</a></li>
                             <li><a href="playlists.html">Медиатека</a></li>
+                            <li><a href="about.html">О нас</a></li>
+                            <li><a href="login.html">Вход/Регистрация</a></li>
                         </ul>
                     </div>
                 </div>
-
+                
                 <div class="copyright">
                     <p>&copy; 2025 Kringe-Music. Все права защищены.</p>
                 </div>
@@ -189,64 +101,69 @@
     <section class="music-player">
         <div class="player-controls">
             <img src="images/current-track.jpg" alt="Обложка текущего трека" class="now-playing-cover">
-
+            
             <div class="main-controls">
                 <button class="player-btn shuffle-btn" aria-label="Перемешать" title="Перемешать">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" />
+                        <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
                     </svg>
                 </button>
-
+                
                 <button class="player-btn prev-btn" aria-label="Предыдущий трек" title="Предыдущий">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
                     </svg>
                 </button>
-
+                
                 <button class="player-btn play-pause-btn" aria-label="Воспроизвести" title="Воспроизвести">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z" />
+                        <path d="M8 5v14l11-7z"/>
                     </svg>
                 </button>
-
+                
                 <button class="player-btn next-btn" aria-label="Следующий трек" title="Следующий">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
                     </svg>
                 </button>
-
+                
                 <button class="player-btn repeat-btn" aria-label="Повтор" title="Повтор">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" />
+                        <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
                     </svg>
                 </button>
             </div>
-
+            
             <div class="volume-controls">
                 <span class="volume-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                     </svg>
                 </span>
                 <input type="range" class="volume" min="0" max="100" value="50" aria-label="Громкость">
             </div>
         </div>
-
+        
         <div class="progress-bar">
             <span class="time-current">0:00</span>
             <progress value="35" max="100"></progress>
             <span class="time-total">3:45</span>
         </div>
-
+        
         <div class="track-info">
             <span>Название трека - Исполнитель</span>
         </div>
     </section>
-    <script src="scripts/player.js"></script>
+
     <script src="scripts/news.js"></script>
+    <script src="scripts/load-releases.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof AuthManager !== 'undefined') {
+                window.authManager = new AuthManager();
+            }
+        });
+    </script>
     <script src="scripts/search.js"></script>
 </body>
-
 </html>

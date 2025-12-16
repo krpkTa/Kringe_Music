@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kringe-Music - Ваши плейлисты</title>
+    <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/playlist.css">
+    <script src="scripts/auth-manager.js"></script>
     <link rel="stylesheet" href="/styles/search.css">
 </head>
 <body>
@@ -19,6 +21,7 @@
                     <li><a href="#playlist">Плейлист дня</a></li>
                     <li><a href="#mood-playlists">Плейлисты по настроению</a></li>
                     <li><a href="#genres">Жанры</a></li>
+                    <li><a href="about.html">О нас</a></li>
                 </ul>
             </nav>
         </aside>
@@ -26,11 +29,15 @@
         <div class="main-content">
             <header>
                 <div class="header-controls">
+                    <div class="user-info" style="display: none;">
+                        <span id="user-display">Гость</span>
+                        <span id="user-email"></span>
+                    </div>
                     <form class="search-form">
                         <input type="search" placeholder="Поиск музыки..." aria-label="Поиск музыки">
                         <button type="submit">Найти</button>
                     </form>
-                    <button class="login-btn" onclick="location.href='/login'">Вход</button>
+                    <button class="login-btn">Вход</button>
                 </div>
             </header>
 
@@ -164,6 +171,8 @@
                         <ul>
                             <li><a href="index.html">Главная</a></li>
                             <li><a href="playlists.html">Медиатека</a></li>
+                            <li><a href="about.html">О нас</a></li>
+                            <li><a href="login.html">Вход/Регистрация</a></li>
                         </ul>
                     </div>
                 </div>
@@ -232,6 +241,15 @@
             <span>Название трека - Исполнитель</span>
         </div>
     </section>
+    
+    <script src="scripts/player.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof AuthManager !== 'undefined') {
+                window.authManager = new AuthManager();
+            }
+        });
+    </script>
 
         <script src="scripts/search.js"></script>
         <script src="scripts/player.js"></script>
