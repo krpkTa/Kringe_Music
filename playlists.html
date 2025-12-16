@@ -43,63 +43,21 @@
 
             <main>
                 <section class="my-tracks" id="my-tracks">
-                    <h2>Мои треки</h2>
-                    <div class="tracks-container">
-                        <article class="track-card">
-                            <span class="track-number">1</span>
-                            <div class="track-info">
-                                <img src="images/my-track1.jpg" alt="Обложка трека 1" class="track-cover">
-                                <div class="track-details">
-                                    <h3>Любимый трек 1</h3>
-                                    <p>Мой любимый исполнитель</p>
-                                </div>
-                            </div>
-                            <span class="track-duration">3:25</span>
-                        </article>
-                        <article class="track-card">
-                            <span class="track-number">2</span>
-                            <div class="track-info">
-                                <img src="images/my-track2.jpg" alt="Обложка трека 2" class="track-cover">
-                                <div class="track-details">
-                                    <h3>Трек для работы</h3>
-                                    <p>Исполнитель для фона</p>
-                                </div>
-                            </div>
-                            <span class="track-duration">4:15</span>
-                        </article>
-                        <article class="track-card">
-                            <span class="track-number">3</span>
-                            <div class="track-info">
-                                <img src="images/my-track3.jpg" alt="Обложка трека 3" class="track-cover">
-                                <div class="track-details">
-                                    <h3>Для тренировки</h3>
-                                    <p>Энергичный исполнитель</p>
-                                </div>
-                            </div>
-                            <span class="track-duration">3:50</span>
-                        </article>
-                    </div>
-                </section>
-
-                <section class="playlist" id="playlist">
-                    <h2>Плейлист дня</h2>
-                    <div class="playlist-container">
-                        <article class="playlist-header">
-                            <img src="images/playlist-cover.jpg" alt="Обложка плейлиста дня" class="playlist-cover">
-                            <div class="playlist-info">
-                                <h3>Название плейлиста</h3>
-                                <p>Описание плейлиста</p>
-                                <p>Количество треков: 15</p>
-                            </div>
-                        </article>
-                    </div>
-                </section>
+    <h2>Мои треки</h2>
+    <div class="tracks-container">
+        <!-- Треки будут загружены через JavaScript -->
+        <div class="loading-tracks">
+            <div class="loading-spinner"></div>
+            <p>Загрузка треков...</p>
+        </div>
+    </div>
+</section>
 
                 <section class="mood-playlists" id="mood-playlists">
                     <h2>Плейлисты по настроению</h2>
                     <div class="playlists-container">
                         <article class="playlist-card">
-                            <img src="images/chill-playlist.jpg" alt="Расслабляющий плейлист" class="playlist-cover">
+                            <img src="images/relax.jpg" alt="Расслабляющий плейлист" class="playlist-cover">
                             <div class="playlist-info">
                                 <h3>Для релакса</h3>
                                 <p>Спокойная музыка для отдыха</p>
@@ -108,7 +66,7 @@
                         </article>
                         
                         <article class="playlist-card">
-                            <img src="images/energy-playlist.jpg" alt="Энергичный плейлист" class="playlist-cover">
+                            <img src="images/train.jpg" alt="Энергичный плейлист" class="playlist-cover">
                             <div class="playlist-info">
                                 <h3>Для тренировки</h3>
                                 <p>Энергичные треки для спорта</p>
@@ -117,7 +75,7 @@
                         </article>
                         
                         <article class="playlist-card">
-                            <img src="images/focus-playlist.jpg" alt="Плейлист для концентрации" class="playlist-cover">
+                            <img src="images/pyro.jpeg" alt="Плейлист для концентрации" class="playlist-cover">
                             <div class="playlist-info">
                                 <h3>Для работы</h3>
                                 <p>Музыка для продуктивности</p>
@@ -126,7 +84,7 @@
                         </article>
                         
                         <article class="playlist-card">
-                            <img src="images/party-playlist.jpg" alt="Праздничный плейлист" class="playlist-cover">
+                            <img src="images/party.jpg" alt="Праздничный плейлист" class="playlist-cover">
                             <div class="playlist-info">
                                 <h3>Для вечеринки</h3>
                                 <p>Танцевальные хиты</p>
@@ -140,19 +98,19 @@
                     <h2>Жанры</h2>
                     <div class="genres-container">
                         <article class="genre-card">
-                            <img src="images/genre1.jpg" alt="Поп-музыка" class="genre-cover">
+                            <img src="images/pop.jpg" alt="Поп-музыка" class="genre-cover">
                             <h3>Поп-музыка</h3>
                         </article>
                         <article class="genre-card">
-                            <img src="images/genre2.jpg" alt="Рок" class="genre-cover">
+                            <img src="images/rock.jpg" alt="Рок" class="genre-cover">
                             <h3>Рок</h3>
                         </article>
                         <article class="genre-card">
-                            <img src="images/genre3.jpg" alt="Хип-хоп" class="genre-cover">
+                            <img src="images/hipHop.jpeg" alt="Хип-хоп" class="genre-cover">
                             <h3>Хип-хоп</h3>
                         </article>
                         <article class="genre-card">
-                            <img src="images/genre4.jpg" alt="Электронная музыка" class="genre-cover">
+                            <img src="images/electro.jpg" alt="Электронная музыка" class="genre-cover">
                             <h3>Электронная</h3>
                         </article>
                     </div>
@@ -251,6 +209,8 @@
         });
     </script>
 
+        <script src="scripts/load-playlist.js"></script>
+        <script src="scripts/load-all-tracks.js"></script>
         <script src="scripts/search.js"></script>
         <script src="scripts/player.js"></script>
 </body>

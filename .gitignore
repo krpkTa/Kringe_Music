@@ -19,6 +19,5 @@ node_modules/
 # Игнорировать выходные сборки
 dist/
 build/
-images/
 tracks/
 project.init
