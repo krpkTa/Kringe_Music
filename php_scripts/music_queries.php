@@ -8,8 +8,7 @@
 function getAllArtists($pdo) {
     try {
         $stmt = $pdo->query("SELECT * FROM artist ORDER BY name");
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         error_log("Error getting artists: " . $e->getMessage());
         return [];
@@ -25,8 +24,7 @@ function getArtistById($pdo, $id) {
     try {
         $stmt = $pdo->prepare("SELECT * FROM artist WHERE id = ?");
         $stmt->execute([$id]);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        return $stmt->fetch() ?: null;
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     } catch(PDOException $e) {
         error_log("Error getting artist by ID: " . $e->getMessage());
         return null;
@@ -42,8 +40,7 @@ function getArtistsByGenre($pdo, $genre) {
     try {
         $stmt = $pdo->prepare("SELECT * FROM artist WHERE genre = ? ORDER BY name");
         $stmt->execute([$genre]);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         error_log("Error getting artists by genre: " . $e->getMessage());
         return [];
@@ -53,49 +50,36 @@ function getArtistsByGenre($pdo, $genre) {
 /**
  * Получить все треки
  * @param bool $withArtistInfo Включить информацию об исполнителе
+ * @param int $limit Ограничение количества записей
  * @return array Массив треков
  */
-function getAllTracks($pdo, $withArtistInfo = true) {
+function getAllTracks($pdo, $withArtistInfo = true, $limit = null) {
     try {
         if ($withArtistInfo) {
             $sql = "SELECT 
                         t.id,
-                        t.title::text,
+                        t.title,
                         t.duration,
                         t.album_id,
                         t.artist_id,
-                        t.img_url::text,
-                        t.track_url::text,
-                        a.name::text as artist_name,
-                        a.genre::text as artist_genre
+                        t.img_url,
+                        t.track_url,
+                        a.name as artist_name,
+                        a.genre as artist_genre,
+                        a.image as artist_image
                     FROM tracks t 
                     LEFT JOIN artist a ON t.artist_id = a.id 
                     ORDER BY t.id";
         } else {
-            $sql = "SELECT 
-                        id,
-                        title::text,
-                        duration,
-                        album_id,
-                        artist_id,
-                        img_url::text,
-                        track_url::text
-                    FROM tracks 
-                    ORDER BY id";
+            $sql = "SELECT * FROM tracks ORDER BY id";
+        }
+        
+        if ($limit) {
+            $sql .= " LIMIT " . intval($limit);
         }
         
         $stmt = $pdo->query($sql);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $stmt->fetchAll();
-        
-        // Конвертируем кодировку из Latin1 в UTF-8 если нужно
-        array_walk_recursive($result, function(&$item) {
-            if (is_string($item) && !mb_check_encoding($item, 'UTF-8')) {
-                $item = mb_convert_encoding($item, 'UTF-8', 'Windows-1251');
-            }
-        });
-        
-        return $result;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         error_log("Error getting tracks: " . $e->getMessage());
         return [];
@@ -113,44 +97,25 @@ function getTrackById($pdo, $id, $withArtistInfo = true) {
         if ($withArtistInfo) {
             $sql = "SELECT 
                         t.id,
-                        t.title::text,
+                        t.title,
                         t.duration,
                         t.album_id,
                         t.artist_id,
-                        t.img_url::text,
-                        t.track_url::text,
-                        a.name::text as artist_name,
-                        a.genre::text as artist_genre
+                        t.img_url,
+                        t.track_url,
+                        a.name as artist_name,
+                        a.genre as artist_genre,
+                        a.image as artist_image
                     FROM tracks t 
                     LEFT JOIN artist a ON t.artist_id = a.id 
                     WHERE t.id = ?";
         } else {
-            $sql = "SELECT 
-                        id,
-                        title::text,
-                        duration,
-                        album_id,
-                        artist_id,
-                        img_url::text,
-                        track_url::text
-                    FROM tracks 
-                    WHERE id = ?";
+            $sql = "SELECT * FROM tracks WHERE id = ?";
         }
         
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $stmt->fetch() ?: null;
-        
-        if ($result) {
-            array_walk_recursive($result, function(&$item) {
-                if (is_string($item) && !mb_check_encoding($item, 'UTF-8')) {
-                    $item = mb_convert_encoding($item, 'UTF-8', 'Windows-1251');
-                }
-            });
-        }
-        
-        return $result;
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     } catch(PDOException $e) {
         error_log("Error getting track by ID: " . $e->getMessage());
         return null;
@@ -167,30 +132,22 @@ function getTracksByArtist($pdo, $artistId) {
         $stmt = $pdo->prepare("
             SELECT 
                 t.id,
-                t.title::text,
+                t.title,
                 t.duration,
                 t.album_id,
                 t.artist_id,
-                t.img_url::text,
-                t.track_url::text,
-                a.name::text as artist_name,
-                a.genre::text as artist_genre
+                t.img_url,
+                t.track_url,
+                a.name as artist_name,
+                a.genre as artist_genre,
+                a.image as artist_image
             FROM tracks t 
             LEFT JOIN artist a ON t.artist_id = a.id 
             WHERE t.artist_id = ? 
             ORDER BY t.title
         ");
         $stmt->execute([$artistId]);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $stmt->fetchAll();
-        
-        array_walk_recursive($result, function(&$item) {
-            if (is_string($item) && !mb_check_encoding($item, 'UTF-8')) {
-                $item = mb_convert_encoding($item, 'UTF-8', 'Windows-1251');
-            }
-        });
-        
-        return $result;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         error_log("Error getting tracks by artist: " . $e->getMessage());
         return [];
@@ -207,30 +164,22 @@ function getTracksByGenre($pdo, $genre) {
         $stmt = $pdo->prepare("
             SELECT 
                 t.id,
-                t.title::text,
+                t.title,
                 t.duration,
                 t.album_id,
                 t.artist_id,
-                t.img_url::text,
-                t.track_url::text,
-                a.name::text as artist_name,
-                a.genre::text as artist_genre
+                t.img_url,
+                t.track_url,
+                a.name as artist_name,
+                a.genre as artist_genre,
+                a.image as artist_image
             FROM tracks t 
             LEFT JOIN artist a ON t.artist_id = a.id 
             WHERE a.genre = ? 
             ORDER BY t.title
         ");
         $stmt->execute([$genre]);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $stmt->fetchAll();
-        
-        array_walk_recursive($result, function(&$item) {
-            if (is_string($item) && !mb_check_encoding($item, 'UTF-8')) {
-                $item = mb_convert_encoding($item, 'UTF-8', 'Windows-1251');
-            }
-        });
-        
-        return $result;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         error_log("Error getting tracks by genre: " . $e->getMessage());
         return [];
@@ -248,30 +197,22 @@ function searchTracks($pdo, $searchTerm) {
         $stmt = $pdo->prepare("
             SELECT 
                 t.id,
-                t.title::text,
+                t.title,
                 t.duration,
                 t.album_id,
                 t.artist_id,
-                t.img_url::text,
-                t.track_url::text,
-                a.name::text as artist_name,
-                a.genre::text as artist_genre
+                t.img_url,
+                t.track_url,
+                a.name as artist_name,
+                a.genre as artist_genre,
+                a.image as artist_image
             FROM tracks t 
             LEFT JOIN artist a ON t.artist_id = a.id 
             WHERE t.title ILIKE ? OR a.name ILIKE ? 
             ORDER BY t.title
         ");
         $stmt->execute([$searchTerm, $searchTerm]);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $stmt->fetchAll();
-        
-        array_walk_recursive($result, function(&$item) {
-            if (is_string($item) && !mb_check_encoding($item, 'UTF-8')) {
-                $item = mb_convert_encoding($item, 'UTF-8', 'Windows-1251');
-            }
-        });
-        
-        return $result;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         error_log("Error searching tracks: " . $e->getMessage());
         return [];
@@ -279,7 +220,7 @@ function searchTracks($pdo, $searchTerm) {
 }
 
 /**
- * Получить популярные треки
+ * Получить популярные треки (по количеству в плейлистах)
  * @param int $limit Лимит результатов
  * @return array Массив популярных треков
  */
@@ -288,36 +229,75 @@ function getPopularTracks($pdo, $limit = 10) {
         $stmt = $pdo->prepare("
             SELECT 
                 t.id,
-                t.title::text,
+                t.title,
                 t.duration,
                 t.album_id,
                 t.artist_id,
-                t.img_url::text,
-                t.track_url::text,
-                a.name::text as artist_name,
-                a.genre::text as artist_genre,
+                t.img_url,
+                t.track_url,
+                a.name as artist_name,
+                a.genre as artist_genre,
+                a.image as artist_image,
                 COUNT(pt.track_id) as playlist_count
             FROM tracks t 
             LEFT JOIN artist a ON t.artist_id = a.id 
             LEFT JOIN playlist_tracks pt ON t.id = pt.track_id
-            GROUP BY t.id, t.title, t.duration, t.album_id, t.artist_id, t.img_url, t.track_url, a.name, a.genre
+            GROUP BY t.id, a.name, a.genre, a.image
             ORDER BY playlist_count DESC, t.title
             LIMIT ?
         ");
         $stmt->execute([$limit]);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $stmt->fetchAll();
-        
-        array_walk_recursive($result, function(&$item) {
-            if (is_string($item) && !mb_check_encoding($item, 'UTF-8')) {
-                $item = mb_convert_encoding($item, 'UTF-8', 'Windows-1251');
-            }
-        });
-        
-        return $result;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         error_log("Error getting popular tracks: " . $e->getMessage());
         return [];
+    }
+}
+
+/**
+ * Получить случайные релизы (треки)
+ * @param int $limit Количество релизов
+ * @return array Массив релизов
+ */
+function getRandomReleases($pdo, $limit = 3) {
+    try {
+        $stmt = $pdo->prepare("
+            SELECT 
+                t.id,
+                t.title,
+                t.duration,
+                t.album_id,
+                t.artist_id,
+                t.img_url as cover,
+                t.track_url,
+                a.name as artist_name,
+                a.genre as artist_genre,
+                a.image as artist_image
+            FROM tracks t
+            LEFT JOIN artist a ON t.artist_id = a.id
+            ORDER BY RANDOM()
+            LIMIT ?
+        ");
+        
+        $stmt->execute([$limit]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        error_log("Error getting random releases: " . $e->getMessage());
+        return [];
+    }
+}
+
+/**
+ * Проверить наличие данных в базе
+ */
+function hasDatabaseData($pdo) {
+    try {
+        $stmt = $pdo->query("SELECT COUNT(*) as count FROM tracks");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
+    } catch(PDOException $e) {
+        error_log("Error checking database data: " . $e->getMessage());
+        return false;
     }
 }
 ?>

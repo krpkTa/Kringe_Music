@@ -54,7 +54,7 @@ $router->addRoute('/about', function() {
     serveHtmlFile('about.html');
 });
 
-
+// API маршруты
 $router->addRoute('/api/login', function() {
     require_once 'php_scripts/auth.php';
     handleLogin();
@@ -74,5 +74,41 @@ $router->addRoute('/api/feedback', function() {
     require_once 'php_scripts/feedback_api.php';
 });
 
+// Новые API маршруты для музыкальных данных
+$router->addRoute('/api/releases', function() {
+    require_once 'php_scripts/music_api.php';
+    handleReleases();
+});
+
+$router->addRoute('/api/tracks', function() {
+    require_once 'php_scripts/music_api.php';
+    handleTracks();
+});
+
+$router->addRoute('/api/track/{id}', function($id) {
+    require_once 'php_scripts/music_api.php';
+    handleTrack($id);
+});
+
+$router->addRoute('/api/artists', function() {
+    require_once 'php_scripts/music_api.php';
+    handleArtists();
+});
+
+$router->addRoute('/api/artist/{id}', function($id) {
+    require_once 'php_scripts/music_api.php';
+    handleArtist($id);
+});
+
+$router->addRoute('/api/search', function() {
+    require_once 'php_scripts/music_api.php';
+    handleSearch();
+});
+
+$router->addRoute('/api/news', function() {
+    require_once 'php_scripts/news_api.php';
+});
+
+// Обработка запроса
 $router->handleRequest($_SERVER['REQUEST_URI']);
 ?>
